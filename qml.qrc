@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>dynamic_button.qml</file>
         <file>dynamic_textbox.qml</file>
+        <file>MainTemplate.ui.qml</file>
     </qresource>
 </RCC>

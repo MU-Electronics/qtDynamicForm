@@ -13,6 +13,7 @@ Button {
     highlighted: false
     objectName: "btnDynamic"
     onClicked: {
+        console.log(JSON.stringify(formFields));
         dynamicFormSubmittion(JSON.stringify(formFields));
     }
 }

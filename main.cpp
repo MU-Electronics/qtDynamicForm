@@ -1,52 +1,36 @@
 #include <QGuiApplication>
+//#include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QQuickItem>
-#include <QQuickView>
+#include <QQmlContext>
 #include <QQuickWindow>
-#include <QValidator>
-#include <QIntValidator>
 #include "dynamicform.h"
 
 int main(int argc, char *argv[])
 {
-    // Load the window and engine
+    // Start the applcation
     QGuiApplication app(argc, argv);
 
+    // Load the engine
+    QQmlApplicationEngine engine;
 
-    QmlApplicationEngine engine;
-    Motters::DynamicForm form(0, engine);
-
-
-
-
-
-
-    /*QQmlApplicationEngine engine;
+    // Load the main QML file
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    QQuickWindow *window = qobject_cast<QQuickWindow*>(engine.rootObjects().at(0));
-    if (!window) {
-        qFatal("Error: Your root item has to be a window.");
-        return -1;
-    }
-    window->show();
-    QQuickItem *root = window->contentItem();
 
+    // Load the window
+    (qobject_cast<QQuickWindow*>(engine.rootObjects().at(0)))->show();
 
+    // start the dynamic form library
+    DynamicForm managedForm(0, &engine);
 
+    // Attach the for listener
+    engine.rootContext()->setContextProperty("FormClass", &managedForm);
+    managedForm.run();
 
-    Motters::DynamicForm* form = new Motters::DynamicForm(&engine, root, nullptr);
-    form->createTextBox("test4", 0);
-    form->createTextBox("test4", 100);
-    form->createSubmitButton();*/
+    // Create a Form
+    managedForm.createTextBox("FirstTextbox", 0);
+    managedForm.createTextBox("SecondTextBox", 100);
+    managedForm.createSubmitButton();
 
-
-
-
-
+    // Return application
     return app.exec();
-}
-
-void hellow()
-{
-
 }
