@@ -25,6 +25,10 @@ Item
     property string longDescription: ""
     property int longDescriptionWidth: 200
 
+    signal submittionSignal(string fields)
+
+
+
     Column
     {
         Row
@@ -47,10 +51,14 @@ Item
 
             TextField
             {
+
                 id: textboxId
                 objectName: "FirstTextbox"
                 text: value
                 validator: IntValidator{bottom: bottomnumber; top: topnumber;}
+                onTextChanged:{
+                   submittionSignal(textboxId.text);
+                }
             }
 
             Rectangle {

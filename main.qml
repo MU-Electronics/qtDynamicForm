@@ -16,12 +16,12 @@ ApplicationWindow {
     }
 
 
-    function addItem(name)
+    function addItem(name, y)
     {
         //var component = testItem.createObject(contentrow.contentItem, {objectName: name});
         //return component;
         var component = Qt.createComponent("dynamic_textbox.qml");
-        component.createObject(contentrow, {value: 100, objectName: name});
+        component.createObject(contentrow, {objectName: name, y:y});
 
         return true;
    }

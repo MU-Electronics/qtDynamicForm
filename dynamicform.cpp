@@ -32,52 +32,69 @@ void DynamicForm::run()
 void DynamicForm::onSubmittionSignal(QString fieldJson)
 {
 
-    QVariant retVal;
-    QMetaObject::invokeMethod(this->m_root, "addItem", Qt::DirectConnection,
-                               Q_RETURN_ARG(QVariant, retVal),
-                               Q_ARG(QVariant, "test"));
+    qDebug() << "c++ fired ";
+    qDebug() << fieldJson;
 
-    qWarning() << retVal;
+//    QVariant retVal;
+//    QMetaObject::invokeMethod(this->m_root, "addItem", Qt::DirectConnection,
+//                               Q_RETURN_ARG(QVariant, retVal),
+//                               Q_ARG(QVariant, "test"));
 
-    auto textboxes = this->m_root->findChild<QQuickItem*>("test");
+//    qWarning() << retVal;
 
-    if(textboxes != nullptr)
-    {
-        qDebug()  << textboxes->property("value").toString();
-    }else{
-        qDebug() << "No textbox found";
-    }
+//    auto textboxes = this->m_root->findChild<QQuickItem*>("test");
+
+//    if(textboxes != nullptr)
+//    {
+//        qDebug()  << textboxes->property("value").toString();
+//    }else{
+//        qDebug() << "No textbox found";
+//    }
 
 }
 
 
 void DynamicForm::createTextBox(QString name, int y)
 {
-    // Load Textbox
-    QQmlComponent textboxQML(this->m_engine,QUrl(QStringLiteral("qrc:/dynamic_textbox.qml")));
 
-    // Create the button
-    QQuickItem *textbox = qobject_cast<QQuickItem*>(textboxQML.create());
+    QVariant retVal;
+    QMetaObject::invokeMethod(this->m_root, "addItem", Qt::DirectConnection,
+                               Q_RETURN_ARG(QVariant, retVal),
+                               Q_ARG(QVariant, name),
+                               Q_ARG(QVariant, y));
+    qWarning() << retVal;
 
-    // Register the component to the class's fields index
-    this->m_fields.append(name);
+    auto textbox = this->m_root->findChild<QQuickItem*>(name);
 
-    // Set the ownership the c++
-    QQmlEngine::setObjectOwnership(textbox, QQmlEngine::CppOwnership);
+    connect(textbox, SIGNAL(submittionSignal(QString)), this, SLOT(onSubmittionSignal(QString)));
 
-    // Set the main window
-    textbox->setParentItem(this->m_window);
-    textbox->setParent(this->m_engine);
+//    // Load Textbox
+//    QQmlComponent textboxQML(this->m_engine,QUrl(QStringLiteral("qrc:/dynamic_textbox.qml")));
 
-    // Set the properties
-    textbox->setProperty("text", QVariant(QString("12")));
-    textbox->setProperty("width", QVariant(QString("200")));
-    textbox->setProperty("topnumber", QVariant(200));
-    textbox->setProperty("value", QVariant(10));
-    textbox->setProperty("y", y);
-    textbox->setProperty("textboxId", QVariant(name));
-    textbox->setProperty("objectName", name);
-    textbox->property("value");
+//    // Create the button
+//    QQuickItem *textbox = qobject_cast<QQuickItem*>(textboxQML.create());
+
+//    // Register the component to the class's fields index
+//    this->m_fields.append(name);
+
+//    // Set the ownership the c++
+//    QQmlEngine::setObjectOwnership(textbox, QQmlEngine::CppOwnership);
+
+//    // Set the main window
+//    textbox->setParentItem(this->m_window);
+//    textbox->setParent(this->m_engine);
+
+//    // Set the properties
+//    textbox->setProperty("text", QVariant(QString("12")));
+//    textbox->setProperty("width", QVariant(QString("200")));
+//    textbox->setProperty("topnumber", QVariant(200));
+//    textbox->setProperty("value", QVariant(10));
+//    textbox->setProperty("y", y);
+//    textbox->setProperty("textboxId", QVariant(name));
+//    textbox->setProperty("objectName", name);
+//    textbox->property("value");
+
+//    connect(textbox, SIGNAL(submittionSignal(QString)), this, SLOT(onSubmittionSignal(QString)));
 }
 
 void DynamicForm::createSubmitButton()
@@ -103,6 +120,6 @@ void DynamicForm::createSubmitButton()
     button->setY(200);
 
     // Connect the buttom
-    connect(button, SIGNAL(submittionSignal(QString)), this, SLOT(onSubmittionSignal(QString)));
+    //connect(button, SIGNAL(submittionSignal(QString)), this, SLOT(onSubmittionSignal(QString)));
 }
 

@@ -5,7 +5,7 @@ import QtQuick.Controls 2.1
 
 
 Button {
-    signal submittionSignal(string fields)
+    //signal submittionSignal(string fields)
 
     property var formFields: []
 
@@ -16,7 +16,7 @@ Button {
     objectName: "btnDynamic"
     onClicked: {
         console.log("Button event fired");
-        submittionSignal(JSON.stringify(formFields));
+        //submittionSignal(JSON.stringify(formFields));
     }
 }
 
