@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 
     // Create a Form
     managedForm.createTextBox("FirstTextbox", 0);
+    managedForm.createTextBox("FirstTextbox2", 100);
    // managedForm.createTextBox("SecondTextBox", 100);
     managedForm.createSubmitButton();
 
