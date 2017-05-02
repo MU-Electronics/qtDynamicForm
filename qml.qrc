@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>dynamic_button.qml</file>
+        <file>dynamic_textbox.qml</file>
+    </qresource>
+</RCC>
