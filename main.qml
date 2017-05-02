@@ -7,9 +7,5 @@ ApplicationWindow {
     width: 640
     height: 480
 
-    Button {
-        text: qsTr("Hello World")
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-    }
+
 }
