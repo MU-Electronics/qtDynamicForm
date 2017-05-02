@@ -5,16 +5,18 @@ import QtQuick.Controls 2.1
 
 
 Button {
-    signal dynamicFormSubmittion(string fields)
+    signal submittionSignal(string fields)
+
     property var formFields: []
+
     x: 0
     y: 0
     text: "Coolsss"
     highlighted: false
     objectName: "btnDynamic"
     onClicked: {
-        console.log(JSON.stringify(formFields));
-        dynamicFormSubmittion(JSON.stringify(formFields));
+        console.log("Button event fired");
+        submittionSignal(JSON.stringify(formFields));
     }
 }
 

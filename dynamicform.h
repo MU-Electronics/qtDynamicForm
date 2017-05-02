@@ -17,7 +17,7 @@ class DynamicForm : public QObject
         void createSubmitButton();
 
     public slots:
-       void onDynamicFormSubmittion(QString fieldsJson);
+       void onSubmittionSignal(QString fieldJson);
 
     private:
 

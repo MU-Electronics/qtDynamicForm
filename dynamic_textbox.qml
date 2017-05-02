@@ -48,6 +48,7 @@ Item
             TextField
             {
                 id: textboxId
+                objectName: "FirstTextbox"
                 text: value
                 validator: IntValidator{bottom: bottomnumber; top: topnumber;}
             }

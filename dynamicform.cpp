@@ -25,11 +25,29 @@ void DynamicForm::run()
 
     // Set the window
     this->m_window = (qobject_cast<QQuickWindow*>(this->m_root))->contentItem();
+
+    qDebug() << "Class Ready";
 }
 
-void DynamicForm::onDynamicFormSubmittion(QString fieldsJson)
+void DynamicForm::onSubmittionSignal(QString fieldJson)
 {
-    qDebug() << fieldsJson;
+
+    QVariant retVal;
+    QMetaObject::invokeMethod(this->m_root, "addItem", Qt::DirectConnection,
+                               Q_RETURN_ARG(QVariant, retVal),
+                               Q_ARG(QVariant, "test"));
+
+    qWarning() << retVal;
+
+    auto textboxes = this->m_root->findChild<QQuickItem*>("test");
+
+    if(textboxes != nullptr)
+    {
+        qDebug()  << textboxes->property("value").toString();
+    }else{
+        qDebug() << "No textbox found";
+    }
+
 }
 
 
@@ -58,6 +76,7 @@ void DynamicForm::createTextBox(QString name, int y)
     textbox->setProperty("value", QVariant(10));
     textbox->setProperty("y", y);
     textbox->setProperty("textboxId", QVariant(name));
+    textbox->setProperty("objectName", name);
     textbox->property("value");
 }
 
@@ -82,5 +101,8 @@ void DynamicForm::createSubmitButton()
     button->setWidth(200);
     button->setX(0);
     button->setY(200);
+
+    // Connect the buttom
+    connect(button, SIGNAL(submittionSignal(QString)), this, SLOT(onSubmittionSignal(QString)));
 }
 
